@@ -1,0 +1,39 @@
+version: '3'
+
+services:
+  nginx:
+    image: nginx:1.19.5-alpine
+    container_name: stale_cache_nginx
+    ports:
+      - 8080:80
+    volumes:
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - nuxt
+      - graphql
+
+  nuxt:
+    image: node:14-alpine
+    container_name: stale_cache_nuxt
+    ports:
+      - 3000:3000
+    environment:
+      - HOST=0.0.0.0
+    volumes:
+      - ../nuxt:/app
+    working_dir: /app
+    entrypoint: ./docker-entrypoint.sh
+    command: npm run start
+    # restart: always
+
+  graphql:
+    image: node:14-alpine
+    container_name: stale_cache_graphql
+    ports:
+      - 4000:4000
+    volumes:
+      - ../graphql:/app
+    working_dir: /app
+    entrypoint: ./docker-entrypoint.sh
+    command: node index.js
+    # restart: always
