@@ -13,31 +13,36 @@ $ sudo apt-get install apache2-utils
 
 # Benchmarks
 
+## Environment
+- Ubuntu 18.04
+- AMD Ryzen 3300X
+- nginx.conf optimized for load testing
+
 ## Case: without caching
 ```bash
-$ ab -c 10 -t 30 -k http://localhost:8080/
+$ ab -c 100 -t 30 -k http://localhost:8080/
 ```
 
 #### Result
 ```text
-Requests per second:    520.22 [#/sec] (mean)
-Time per request:       19.223 [ms] (mean)
-Time per request:       1.922 [ms] (mean, across all concurrent requests)
-Transfer rate:          1801.96 [Kbytes/sec] received
+Requests per second:    576.09 [#/sec] (mean)
+Time per request:       173.584 [ms] (mean)
+Time per request:       1.736 [ms] (mean, across all concurrent requests)
+Transfer rate:          1991.56 [Kbytes/sec] received
 
 Connection Times (ms)
               min  mean[+/-sd] median   max
-Connect:        0    0   0.0      0       0
-Processing:     6   19   4.4     18      60
-Waiting:        6   19   4.4     18      60
-Total:          6   19   4.4     18      61
+Connect:        0    0   0.2      0       3
+Processing:    76  173  22.3    167     459
+Waiting:       76  173  22.3    167     459
+Total:         79  173  22.4    167     461
 ```
 
 
 ## Case: with caching on Nuxt
 
 #### Setup
-1. Find ```docker/nginx/default.conf``` and unquote all quoted lines
+1. Find ```docker/nginx/default.conf``` and unquote lines from 30~35
 2. Execute following command
 
 ```bash
@@ -57,17 +62,17 @@ this means caching is working.
 
 #### Result
 ```
-Requests per second:    35831.92 [#/sec] (mean)
-Time per request:       0.279 [ms] (mean)
-Time per request:       0.028 [ms] (mean, across all concurrent requests)
-Transfer rate:          124886.19 [Kbytes/sec] received
+Requests per second:    45007.74 [#/sec] (mean)
+Time per request:       2.222 [ms] (mean)
+Time per request:       0.022 [ms] (mean, across all concurrent requests)
+Transfer rate:          156560.13 [Kbytes/sec] received
 
 Connection Times (ms)
               min  mean[+/-sd] median   max
-Connect:        0    0   0.0      0       0
-Processing:     0    0   6.7      0     501
-Waiting:        0    0   6.7      0     501
-Total:          0    0   6.7      0     501
+Connect:        0    0   0.1      0       4
+Processing:     0    2  22.2      0     503
+Waiting:        0    2  22.2      0     502
+Total:          0    2  22.3      0     506
 ```
 
 # More treasure in nginx caching behavior
@@ -80,3 +85,5 @@ Check this [episode](https://www.nginx.com/blog/nginx-caching-guide/#stale)
 - [A Guide to Caching with NGINX and NGINX Plus](https://www.nginx.com/blog/nginx-caching-guide/)
 - [Ubuntu Linux 用 ab 指令測試網站效能](https://www.arthurtoday.com/2015/03/Using-ab-command-to-test-web-page-loading-time-in-ubuntu-linux.html)
 - [github/.gitignore](https://github.com/github/gitignore)
+- [Tuning NGINX for Performance](https://www.nginx.com/blog/tuning-nginx/)
+- [denji/nginx-tuning ](https://github.com/denji/nginx-tuning)
