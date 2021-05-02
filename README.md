@@ -62,17 +62,17 @@ this means caching is working.
 
 #### Result
 ```
-Requests per second:    45007.74 [#/sec] (mean)
-Time per request:       2.222 [ms] (mean)
-Time per request:       0.022 [ms] (mean, across all concurrent requests)
-Transfer rate:          156560.13 [Kbytes/sec] received
+Requests per second:    93875.03 [#/sec] (mean)
+Time per request:       1.065 [ms] (mean)
+Time per request:       0.011 [ms] (mean, across all concurrent requests)
+Transfer rate:          326551.24 [Kbytes/sec] received
 
 Connection Times (ms)
               min  mean[+/-sd] median   max
-Connect:        0    0   0.1      0       4
-Processing:     0    2  22.2      0     503
-Waiting:        0    2  22.2      0     502
-Total:          0    2  22.3      0     506
+Connect:        0    0   0.2      0       6
+Processing:     0    1   1.2      0      11
+Waiting:        0    1   1.2      0      11
+Total:          0    1   1.2      0      11
 ```
 
 # More treasure in nginx caching behavior
